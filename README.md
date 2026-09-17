@@ -1,7 +1,5 @@
 # plssemtools
 
-[![R-CMD-check](https://github.com/YOUR_USERNAME/plssemtools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/YOUR_USERNAME/plssemtools/actions/workflows/R-CMD-check.yaml)
-
 A reusable, dataset-agnostic **PLS-SEM analysis pipeline** built on top of [`seminr`](https://github.com/sem-in-r/seminr), producing full diagnostic tables and **publication-quality, journal-style figures** (clean black/white/gray `ggplot2`, exported as PNG + PDF).
 
 This package generalizes a one-off analysis script into something you can point at **any survey dataset and any construct/path specification**, without touching the R code — you only ever edit a small YAML config.
