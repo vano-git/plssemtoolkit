@@ -1,0 +1,87 @@
+---
+title: "Getting Started with plssemtools"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with plssemtools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+```
+
+## 1. Define your model
+
+Every analysis starts with a small YAML file describing your constructs,
+their items, and the hypothesized structural paths between them:
+
+```yaml
+constructs:
+  Psychological Factors:
+    type: reflective
+    items: [PS_1, PS_2, PS_3]
+  Social Factors:
+    type: reflective
+    items: [SO_1, SO_2, SO_3, SO_4]
+  Environmental Factors:
+    type: reflective
+    items: [EN_1, EN_2, EN_3]
+  Good Shopping Vibes:
+    type: reflective
+    items: [GV_1, GV_2, GV_3, GV_4, GV_5]
+
+paths:
+  - from: [Psychological Factors, Social Factors, Environmental Factors]
+    to: Good Shopping Vibes
+```
+
+Save this as `model_spec.yml`. You never need to write `seminr::constructs()`
+or `seminr::relationships()` calls by hand again -- `load_model_spec()` builds
+them for you and validates that every item referenced actually exists.
+
+## 2. Run the full pipeline
+
+```{r}
+library(plssemtools)
+
+result <- run_pls_pipeline(
+  data       = "your_survey_data.csv",
+  spec       = "model_spec.yml",
+  output_dir = "pls_output",
+  nboot      = 5000,
+  seed       = 1234
+)
+```
+
+This single call:
+
+1. Loads and validates your CSV against the model spec (catches missing/typo'd columns immediately)
+2. Computes construct- and item-level descriptive statistics
+3. Estimates the PLS-SEM model
+4. Computes reliability/validity diagnostics (Cronbach's alpha, CR, AVE, Fornell-Larcker, HTMT, VIF, cross-loadings)
+5. Computes Q-squared via k-fold prediction
+6. Runs bootstrapped resampling for path significance
+7. Generates all eight publication-quality figures in PNG and PDF
+
+## 3. Inspect results programmatically
+
+```{r}
+result$model_summary$reliability
+result$construct_descriptives
+result$q2_table
+```
+
+## 4. Reuse on a new dataset
+
+Copy your YAML file, point it at new column names, and re-run. Nothing in
+the package needs to change -- that's the entire point.
+
+## 5. Customize a single figure
+
+```{r}
+th <- plssem_theme(base_family = "serif", base_size = 12)
+p <- plot_path_diagram(result$model_summary, result$spec,
+                        boot_summary = result$boot$summary, theme = th)
+ggplot2::ggsave("figure1.pdf", p, width = 8, height = 5, device = grDevices::cairo_pdf)
+```

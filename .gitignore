@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+inst/doc
+pls_output/
+*.csv
+!inst/extdata/*.csv
+.DS_Store

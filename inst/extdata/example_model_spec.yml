@@ -1,0 +1,30 @@
+# Example model specification for plssemtools.
+#
+# This reproduces the model from the original analysis script:
+#   Psychological / Social / Environmental Factors -> Good Shopping Vibes
+#
+# To reuse this package on a NEW dataset, copy this file, rename the
+# constructs/items to match your questionnaire's column names, and adjust
+# the `paths` section to reflect your hypothesized structural model.
+# Nothing in the R code needs to change.
+
+constructs:
+  Psychological Factors:
+    type: reflective
+    items: [PS_1, PS_2, PS_3]
+
+  Social Factors:
+    type: reflective
+    items: [SO_1, SO_2, SO_3, SO_4]
+
+  Environmental Factors:
+    type: reflective
+    items: [EN_1, EN_2, EN_3]
+
+  Good Shopping Vibes:
+    type: reflective
+    items: [GV_1, GV_2, GV_3, GV_4, GV_5]
+
+paths:
+  - from: [Psychological Factors, Social Factors, Environmental Factors]
+    to: Good Shopping Vibes

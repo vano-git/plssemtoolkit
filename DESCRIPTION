@@ -1,0 +1,40 @@
+Package: plssemtools
+Type: Package
+Title: Reproducible PLS-SEM Analysis and Publication-Quality Figures
+Version: 0.1.0
+Authors@R: person("Your", "Name", email = "you@example.com", role = c("aut", "cre"))
+Description: A reusable, dataset-agnostic workflow for Partial Least Squares
+    Structural Equation Modeling (PLS-SEM) built on top of 'seminr'. Provides
+    descriptive statistics, reliability and validity tables (Fornell-Larcker,
+    HTMT, VIF, cross-loadings), bootstrapped significance testing, blindfolding-based
+    Q-squared, and clean, journal-style ggplot2 figures (path diagrams, loading
+    plots, importance-performance maps) suitable for direct inclusion in academic
+    manuscripts. Designed to be pointed at any construct/item specification and
+    any compatible survey dataset without modifying source code.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.1
+Depends: R (>= 4.1.0)
+Imports:
+    seminr (>= 2.3.2),
+    ggplot2 (>= 3.4.0),
+    dplyr,
+    tidyr,
+    stringr,
+    tibble,
+    scales,
+    ggrepel,
+    yaml,
+    jsonlite,
+    purrr,
+    rlang
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    svglite
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+URL: https://github.com/YOUR_USERNAME/plssemtools
+BugReports: https://github.com/YOUR_USERNAME/plssemtools/issues
